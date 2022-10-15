@@ -1,10 +1,10 @@
 # Express-Jwt Authorization
 ## Rest API using express, redis and JWT to authorize users
 
-#### readme -
+#### readme - https://github.com/iamksuresh/express-jwt-authentication#readme
 
 #### screenshots
--   Folder structure - 
+-   Folder structure - ![folder structure](https://github.com/iamksuresh/express-jwt-authentication/blob/main/screenshots/folder_structure.png)
 
 
 ## Features
@@ -33,7 +33,7 @@
 
 ## Installation
 -  Pre-requisite - [Node.js](https://nodejs.org/) latest. 
--  git clone 
+-  git clone git@github.com:iamksuresh/express-jwt-authentication.git
 -  Tested in node 16.15.0 , npm 8.9.0 , 
 
 ```sh
@@ -51,5 +51,9 @@ npm i (if not already done)
 npm test
 ```
 ## Postman collection
-- Access Postman collection here - 
+- Access Postman collection here -  https://github.com/iamksuresh/express-jwt-authentication/tree/main/postman-collection
 
+### Screenshots
+
+![refresh token](https://github.com/iamksuresh/express-jwt-authentication/blob/main/screenshots/httponly-refresh-token-cookie.png)
+![/token](https://github.com/iamksuresh/express-jwt-authentication/blob/main/screenshots/token-api.png)
