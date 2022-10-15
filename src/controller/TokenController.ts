@@ -13,6 +13,7 @@ import { BaseController } from './BaseController';
 import { TokenVM } from './viewModel/TokenVM';
 import { types as serviceTypes } from '../services/types';
 import { ITokenService } from '../services/ITokenService';
+import { CommonEnum } from '../enum/CommonEnum';
 
 @injectable()
 @Controller('/token')
@@ -28,7 +29,7 @@ export class TokenController extends BaseController {
   @ValidateRequestParams(TokenVM)
   async generateTokenController(req: Request, res: Response) {
     const { username, password } = this.params(req);
-    if (!username || !password) this.throwError({ reason: 'Invalid params' });
+    if (!username || !password) this.throwError({ reason: CommonEnum.INVALID_PARAMS });
     this._logservice.info(`token api called`);
     const { token } = await this._tokenService.generateToken(username, password);
     this._setHttpOnlyCookie(token.refreshToken, res);
@@ -42,7 +43,7 @@ export class TokenController extends BaseController {
   async renewTokenController(req: Request, res: Response) {
     const cookies = this.cookie(req);
 
-    if (!cookies?.jwt) this.throwError({ reason: 'No Refresh token found in cookie' });
+    if (!cookies || !cookies.jwt) this.throwError({ reason: CommonEnum.NO_REFRESH_TOKEN_FOUND });
     // Destructuring refreshToken from cookie
     const refreshToken = cookies.jwt;
     const { token } = await this._tokenService.renewToken(refreshToken);

@@ -9,7 +9,7 @@ module.exports = {
   preset: "ts-jest",
   globals: {
     "ts-jest": {
-      tsConfig: {
+      tsconfig: {
         noUnusedLocals: false,
       },
     },
@@ -30,11 +30,7 @@ module.exports = {
     "<rootDir>/test/mock",
     "<rootDir>/src/models",
     "<rootDir>/src/types",
-    "<rootDir>/src/services/implementation/__fixtures__",
-    "<rootDir>/src/services/processNS5ImportService",
-    "<rootDir>/src/services/DBService.ts",
-    "<rootDir>/src/services/rfidService.ts",
-    "<rootDir>/src/services/InventoryService.ts",
+    "<rootDir>/src/services/implementation/__fixtures__"  
   ],
   // collectCoverageFrom: ["**/*.ts", "!test/test-utils.test.ts"],
   collectCoverage: true,

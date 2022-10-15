@@ -21,15 +21,13 @@
 -- Use refresh token from above, for token renewal on expiry
 -  Token secrets and expiry are in .env file (pushed for assignment purpose only)
 
-#### Note : Redislabs url is shared separately in mail. Please add it in .env file `REDIS_URL`
+#### Note : Please replace the .env content with values provided in mail
 
 ## Technology stack
--   Express js , Typescript, Redis, Jsonwebtokens, Inversify (IOC)
+-   Express js , Typescript, Redis, Jsonwebtokens, Inversify (IOC) , 
+-   supertest, redis-mock
 -   Reflect-metadata : JS metadata / proxies
-
-## Testing
--   Super test for API integration test
-
+-   prettier, Eslint
 
 ## Installation
 -  Pre-requisite - [Node.js](https://nodejs.org/) latest. 
@@ -43,13 +41,42 @@ npm start
 ```
 - Server will start at port 3000
 
-
 ## Testing
+-   Super test for API integration test
 ```sh
 cd <root-folder>
 npm i (if not already done)
 npm test
 ```
+![Test coverage](https://github.com/iamksuresh/express-jwt-authentication/blob/main/screenshots/test-coverage.png)
+
+###  JWT Implementation and testing strategy 
+- Redis is mocked and separate Express instance is loaded
+- All test cases are executed in this instance
+- /token
+    - mock username,password is passed as params
+    - for these params, using keys from .env, jwt Access and Refresh tokens are generated
+    - Access token is returned in response
+    - Refresh token is returned as httponly cookie
+    - Both access token and refresh token are stored in Redis
+- /token/renew
+    - we need to set refresh token from /token api to Cookie headers
+    - For valid refresh headers, new Access token is passed
+    - Error scenarios like - invalid token, no cookie are handled
+- /about
+    - add access token in header.authorization as - 
+    ``set('Authorization', 'Bearer ' + accessToken) ``
+- Json web tokens
+    - It is used as middleware for `/about` path
+    - uses `verify()` to check for valid access token
+### Improvements
+
+Though token is one of the most preferred way of implementing authorization in http(s), few options can be considered to improve JWT implementation
+-  Rotating Refresh token - update refresh token with every access token renewal
+-  Passing Refresh token as httponly cookie and restricting it to specific path (/token/renew)
+-  Having better CORS policy
+-  To have better redis implementation
+
 ## Postman collection
 - Access Postman collection here -  https://github.com/iamksuresh/express-jwt-authentication/tree/main/postman-collection
 
